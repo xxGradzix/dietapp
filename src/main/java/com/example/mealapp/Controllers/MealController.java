@@ -31,13 +31,11 @@ public class MealController {
     public ResponseEntity<Meal> addFoodIngredient(@PathVariable("mealId") Long mealId, @PathVariable("ingredientId") Long ingredient, @RequestParam(name = "amount") int amount ){
         return new ResponseEntity<>(mealService.addIngredientToMeal(mealId, ingredient, amount), HttpStatus.ACCEPTED);
     }
-
     @DeleteMapping("/{mealId}/delete/{ingredientId}")
     public ResponseEntity<Meal> deleteIngredientFromMeal(@PathVariable("mealId") Long mealId, @PathVariable("ingredientId") Long ingredient, @RequestParam(name = "amount") int amount ) {
         return new ResponseEntity<>(mealService.deleteIngredientFromMeal(mealId, ingredient, amount), HttpStatus.OK);
     }
-
-    @DeleteMapping("/delete/{mealId}")
+    @DeleteMapping("/{mealId}")
     public ResponseEntity<?> deleteMeal(@PathVariable("mealId") Long mealId) {
         mealService.deleteMeal(mealId);
         return new ResponseEntity<>(HttpStatus.OK);

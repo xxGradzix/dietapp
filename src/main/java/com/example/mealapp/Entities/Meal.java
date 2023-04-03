@@ -11,15 +11,10 @@ import java.util.Objects;
 
 @Entity
 @Data
-//@Setter
-//@Getter
-//@EqualsAndHashCode
 @RequiredArgsConstructor
 @AllArgsConstructor
 @ToString
 public class Meal extends Food {
-
-
 
     @Id
     @SequenceGenerator(

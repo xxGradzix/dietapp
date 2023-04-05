@@ -17,11 +17,9 @@ public class MealService {
     private MealRepository mealRepository;
     private IngredientRepository ingredientRepository;
 
-    public List<Meal> addMeals(List<Meal> meals) {
-        for(Meal meal : meals) {
-            if(mealRepository.findAll().contains(meal)) throw new RuntimeException("This meal already exists");
-        }
-        return mealRepository.saveAll(meals);
+    public Meal addMeal(Meal meal) {
+        if(mealRepository.findAll().contains(meal)) throw new RuntimeException("This meal already exists");
+        return mealRepository.save(meal);
     }
 
     public List<Meal> getMeals() {

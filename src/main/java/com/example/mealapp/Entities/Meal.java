@@ -31,14 +31,16 @@ public class Meal extends Food {
     private String name;
 
     private int kcal = 0;
-    private int carbs = 0;
-    private int fat = 0;
-    private int protein = 0;
+    private double carbs = 0;
+    private double fat = 0;
+    private double protein = 0;
 
-
-    public Map<Ingredient, Integer> getIngredients() {
-        return new HashMap<>(ingredients);
+    public Meal(String name) {
+        this.name = name;
     }
+
+
+
 
     @ElementCollection
     @CollectionTable(name = "meal_ingredients", joinColumns = @JoinColumn(name = "meal_id"))
@@ -46,7 +48,10 @@ public class Meal extends Food {
     @MapKeyJoinColumn(name = "ingredient_id")
     @JsonDeserialize(keyUsing = InstantKeyDeserializer.class)
     private Map<Ingredient, Integer> ingredients = new HashMap<>();
-
+    
+    public Map<Ingredient, Integer> getIngredients() {
+        return new HashMap<>(ingredients);
+    }
     public void addIngredient(Ingredient ingredient, int amount) {
         if(amount < 0) return;
 

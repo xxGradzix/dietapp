@@ -1,10 +1,9 @@
 package com.example.mealapp.Entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+
+import java.util.Objects;
 
 @Entity
 @Data
@@ -28,8 +27,24 @@ public class Ingredient extends Food {
     private String name;
 
     private int kcal = 0;
-    private int carbs = 0;
-    private int fat = 0;
-    private int protein = 0;
+    private double carbs = 0;
+    private double fat = 0;
+    private double protein = 0;
 
+    public Ingredient(String ingredient) {
+        this.name = ingredient;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ingredient that = (Ingredient) o;
+        return Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
 }

@@ -21,8 +21,9 @@ public class IngredientService {
         return ingredientRepository.findAll();
     }
 
-    public List<Ingredient> addIngredients(List<Ingredient> ingredients) {
-        return ingredientRepository.saveAll(ingredients);
+    public Ingredient addIngredient(Ingredient ingredient) {
+        if(ingredientRepository.findAll().contains(ingredient)) throw new RuntimeException("This ingredient already exists");
+        return ingredientRepository.save(ingredient);
     }
     
     @Transactional

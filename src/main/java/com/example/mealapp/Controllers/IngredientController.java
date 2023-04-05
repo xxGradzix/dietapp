@@ -17,15 +17,15 @@ public class IngredientController {
 
     private IngredientService ingredientService;
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Ingredient>> getIngredients() {
         return new ResponseEntity<>(ingredientService.getAllIngredients(), HttpStatus.OK);
     }
-    @PostMapping
-    public ResponseEntity<List<Ingredient>> addIngredient(@RequestBody List<Ingredient> ingredients) {
-        return new ResponseEntity<>(ingredientService.addIngredients(ingredients), HttpStatus.CREATED);
+    @PostMapping("/add")
+    public ResponseEntity<Ingredient> addIngredient(@RequestBody Ingredient ingredient) {
+        return new ResponseEntity<>(ingredientService.addIngredient(ingredient), HttpStatus.CREATED);
     }
-    @DeleteMapping("/{ingredientId}")
+    @DeleteMapping("/delete/{ingredientId}")
     public ResponseEntity<?> deleteIngredient(@PathVariable("ingredientId") Long ingredientId) {
         ingredientService.deleteIngredient(ingredientId);
         return new ResponseEntity<>(HttpStatus.OK);

@@ -17,25 +17,25 @@ public class MealController {
 
     private MealService mealService;
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Meal>> getMeals() {
         return new ResponseEntity<>(mealService.getMeals(), HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<List<Meal>> addMeals(@RequestBody List<Meal> meals) {
-        return new ResponseEntity<>(mealService.addMeals(meals), HttpStatus.CREATED);
+    public ResponseEntity<Meal> addMeals(@RequestBody Meal meal) {
+        return new ResponseEntity<>(mealService.addMeal(meal), HttpStatus.CREATED);
     }
 
-    @PostMapping("/{mealId}/add/{ingredientId}")
-    public ResponseEntity<Meal> addFoodIngredient(@PathVariable("mealId") Long mealId, @PathVariable("ingredientId") Long ingredient, @RequestParam(name = "amount") int amount ){
+    @PatchMapping("/{mealId}/add/{ingredientId}")
+    public ResponseEntity<Meal> addFoodIngredient(@PathVariable("mealId") Long mealId, @PathVariable("ingredientId") Long ingredient, @RequestBody Integer amount){
         return new ResponseEntity<>(mealService.addIngredientToMeal(mealId, ingredient, amount), HttpStatus.ACCEPTED);
     }
-    @DeleteMapping("/{mealId}/delete/{ingredientId}")
-    public ResponseEntity<Meal> deleteIngredientFromMeal(@PathVariable("mealId") Long mealId, @PathVariable("ingredientId") Long ingredient, @RequestParam(name = "amount") int amount ) {
+    @PatchMapping("/{mealId}/delete/{ingredientId}")
+    public ResponseEntity<Meal> deleteIngredientFromMeal(@PathVariable("mealId") Long mealId, @PathVariable("ingredientId") Long ingredient, @RequestBody int amount ) {
         return new ResponseEntity<>(mealService.deleteIngredientFromMeal(mealId, ingredient, amount), HttpStatus.OK);
     }
-    @DeleteMapping("/{mealId}")
+    @DeleteMapping("/delete/{mealId}")
     public ResponseEntity<?> deleteMeal(@PathVariable("mealId") Long mealId) {
         mealService.deleteMeal(mealId);
         return new ResponseEntity<>(HttpStatus.OK);

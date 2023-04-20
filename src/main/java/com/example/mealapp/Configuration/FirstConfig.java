@@ -18,11 +18,15 @@ public class FirstConfig {
             Ingredient jajko = new Ingredient(null, "jajko", 140, 0.6, 9.7, 12.5);
             Ingredient odzywkaBialkowa = new Ingredient(null, "odzywka bialkowa", 418, 15, 8, 72);
             Ingredient banan = new Ingredient(null, "banan", 94, 22, 0.2, 1.2);
-            Ingredient twarogChudy = new Ingredient(null, "twaróg chudy", 86, 3.5, 0, 18);
+            Ingredient twarogChudy = new Ingredient(null, "twarog chudy", 86, 3.5, 0, 18);
             Ingredient skyr = new Ingredient(null, "skyr", 64, 4.1, 0, 12);
-            Ingredient wiorki = new Ingredient(null, "wiórki kokosowe", 657, 5.9, 67, 5.9);
+            Ingredient wiorki = new Ingredient(null, "wiorki kokosowe", 657, 5.9, 67, 5.9);
             Ingredient olejkokosowy = new Ingredient(null, "olej kokosowy", 892, 0, 100, 0);
             Ingredient cukier = new Ingredient(null, "cukier", 393, 100, 0, 0);
+            Ingredient platkiOwsiane = new Ingredient(null, "platki owsiane", 363, 60, 5.7, 13);
+            Ingredient kakao = new Ingredient(null, "kakao", 309, 13, 11, 24);
+            Ingredient serekWiejskiLekki = new Ingredient(null, "serek wiejski lekki", 81, 2.4, 3, 11);
+            Ingredient masloOrzechowe = new Ingredient(null, "maslo orzechowe", 637, 9.6, 52, 29);
 
 
             ingredientService.addIngredient(mleko);
@@ -34,15 +38,29 @@ public class FirstConfig {
             ingredientService.addIngredient(wiorki);
             ingredientService.addIngredient(olejkokosowy);
             ingredientService.addIngredient(cukier);
+            ingredientService.addIngredient(platkiOwsiane);
+            ingredientService.addIngredient(kakao);
+            ingredientService.addIngredient(serekWiejskiLekki);
+            ingredientService.addIngredient(masloOrzechowe);
 
-            Meal meal = new Meal("Twaróg kokosowy");
+            Meal meal = new Meal("Twarog kokosowy");
+
             meal.addIngredient(twarogChudy, 250);
             meal.addIngredient(skyr, 150);
             meal.addIngredient(olejkokosowy, 20);
-            meal.addIngredient(cukier, 20);
+            meal.addIngredient(cukier, 15);
             meal.addIngredient(wiorki, 40);
-
             mealService.addMeal(meal);
+
+            meal = new Meal("Owsianka");
+            meal.addIngredient(platkiOwsiane, 50);
+            meal.addIngredient(kakao, 5);
+            meal.addIngredient(mleko, 100);
+            meal.addIngredient(masloOrzechowe, 50);
+            meal.addIngredient(banan, 100);
+            meal.addIngredient(serekWiejskiLekki, 200);
+            mealService.addMeal(meal);
+
         };
 
     }

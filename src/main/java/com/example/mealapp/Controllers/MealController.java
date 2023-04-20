@@ -16,7 +16,6 @@ import java.util.List;
 public class MealController {
 
     private MealService mealService;
-
     @GetMapping("/all")
     public ResponseEntity<List<Meal>> getMeals() {
         return new ResponseEntity<>(mealService.getMeals(), HttpStatus.OK);

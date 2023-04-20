@@ -2,6 +2,7 @@ package com.example.mealapp.Services;
 
 import com.example.mealapp.Entities.Ingredient;
 import com.example.mealapp.Entities.Meal;
+import com.example.mealapp.Repositories.DayPlanRepository;
 import com.example.mealapp.Repositories.IngredientRepository;
 import com.example.mealapp.Repositories.MealRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,12 +26,14 @@ class MealServiceTest {
     private MealRepository mealRepository;
     @Mock
     private IngredientRepository ingredientRepository;
+    @Mock
+    private DayPlanRepository dayPlanRepository;
 
     private MealService mealService;
 
     @BeforeEach
     void setUp() {
-        mealService = new MealService(mealRepository, ingredientRepository);
+        mealService = new MealService(mealRepository, ingredientRepository, dayPlanRepository);
     }
 
     @Test

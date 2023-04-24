@@ -41,4 +41,22 @@ public class DayPlanService {
         return dayPlan;
 
     }
+
+    @Transactional
+    public DayPlan deleteMealFromPlan(Long planId, Long mealId) {
+
+        DayPlan dayPlan = dayPlanRepository.findById(planId).orElseThrow(() ->
+                new RuntimeException("There is no plan with that id"));
+
+        Meal meal = mealRepository.findById(mealId).orElseThrow(() ->
+                new RuntimeException("There is no meal with that id"));
+
+        dayPlan.deleteMealByMeal(meal);
+        return dayPlan;
+    }
+
+    public void deleteDayPlan(Long dayPlanId) {
+        dayPlanRepository.findById(dayPlanId).orElseThrow(() -> new RuntimeException("There is no day plan with that id"));
+        dayPlanRepository.deleteById(dayPlanId);
+    }
 }

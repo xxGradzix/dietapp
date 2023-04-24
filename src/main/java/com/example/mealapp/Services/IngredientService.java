@@ -37,11 +37,11 @@ public class IngredientService {
 
         for (Meal meal : meals) {
             meal.deleteIngredient(ingredient, Integer.MAX_VALUE);
-
+            mealRepository.save(meal);
         }
         for (DayPlan plan : dayPlanRepository.findAll()) {
             plan.updateData();
-
+            dayPlanRepository.save(plan);
         }
         ingredientRepository.delete(ingredient);
     }

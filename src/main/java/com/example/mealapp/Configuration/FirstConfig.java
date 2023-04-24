@@ -1,7 +1,6 @@
 package com.example.mealapp.Configuration;
 
 import com.example.mealapp.Entities.Ingredient;
-import com.example.mealapp.Entities.Meal;
 import com.example.mealapp.Services.IngredientService;
 import com.example.mealapp.Services.MealService;
 import org.springframework.boot.CommandLineRunner;
@@ -42,24 +41,6 @@ public class FirstConfig {
             ingredientService.addIngredient(kakao);
             ingredientService.addIngredient(serekWiejskiLekki);
             ingredientService.addIngredient(masloOrzechowe);
-
-            Meal meal = new Meal("Twarog kokosowy");
-
-            meal.addIngredient(twarogChudy, 250);
-            meal.addIngredient(skyr, 150);
-            meal.addIngredient(olejkokosowy, 20);
-            meal.addIngredient(cukier, 15);
-            meal.addIngredient(wiorki, 40);
-            mealService.addMeal(meal);
-
-            meal = new Meal("Owsianka");
-            meal.addIngredient(platkiOwsiane, 50);
-            meal.addIngredient(kakao, 5);
-            meal.addIngredient(mleko, 100);
-            meal.addIngredient(masloOrzechowe, 50);
-            meal.addIngredient(banan, 100);
-            meal.addIngredient(serekWiejskiLekki, 200);
-            mealService.addMeal(meal);
 
         };
 

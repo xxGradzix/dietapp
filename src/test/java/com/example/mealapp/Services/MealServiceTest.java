@@ -1,5 +1,6 @@
 package com.example.mealapp.Services;
 
+import com.example.mealapp.Entities.DayPlan;
 import com.example.mealapp.Entities.Ingredient;
 import com.example.mealapp.Entities.Meal;
 import com.example.mealapp.Repositories.DayPlanRepository;
@@ -12,12 +13,13 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class MealServiceTest {
@@ -43,7 +45,15 @@ class MealServiceTest {
         Meal meal = new Meal("testMeal");
         Ingredient ingredient = new Ingredient("testIngredient");
 
+        List<DayPlan> dayPlans = Arrays.asList(
+                new DayPlan("plan1"),
+                new DayPlan("plan2")
+        );
+
+
+
         // when
+        when(dayPlanRepository.findAll()).thenReturn(dayPlans);
         when(mealRepository.findById(meal.getId())).thenReturn(Optional.of(meal));
         when(ingredientRepository.findById(ingredient.getId())).thenReturn(Optional.of(ingredient));
 
@@ -51,6 +61,11 @@ class MealServiceTest {
         Meal result = mealService.addIngredientToMeal(meal.getId(), ingredient.getId(), 3);
 
         assertEquals(meal, result);
+        verify(dayPlanRepository).findAll();
+
+//        for (DayPlan plan : dayPlans) {
+//            assertThat();
+//        }
 
     }
 
@@ -98,7 +113,13 @@ class MealServiceTest {
         Ingredient ingredient = new Ingredient("testIngredient");
         meal.addIngredient(ingredient, 200);
 
+        List<DayPlan> dayPlans = Arrays.asList(
+                new DayPlan("plan1"),
+                new DayPlan("plan2")
+        );
+
         // when
+        when(dayPlanRepository.findAll()).thenReturn(dayPlans);
         when(mealRepository.findById(meal.getId())).thenReturn(Optional.of(meal));
         when(ingredientRepository.findById(ingredient.getId())).thenReturn(Optional.of(ingredient));
 
@@ -107,6 +128,9 @@ class MealServiceTest {
 
         assertEquals(meal, result);
 
+        verify(dayPlanRepository).findAll();
+
+
     }
 
     @Test
@@ -114,7 +138,13 @@ class MealServiceTest {
         // given
         Meal meal = new Meal("meal");
 
+        List<DayPlan> dayPlans = Arrays.asList(
+                new DayPlan("plan1"),
+                new DayPlan("plan2")
+        );
+
         // when
+        when(dayPlanRepository.findAll()).thenReturn(dayPlans);
         when(mealRepository.findById(meal.getId())).thenReturn(Optional.of(meal));
         mealService.deleteMeal(meal.getId());
 
@@ -124,6 +154,8 @@ class MealServiceTest {
         verify(mealRepository).delete(argumentCaptor.capture());
 
         assertThat(argumentCaptor.getValue()).isEqualTo(meal);
+        verify(dayPlanRepository).findAll();
+
 
     }
 }

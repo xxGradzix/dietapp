@@ -1,6 +1,5 @@
 package com.example.mealapp.Entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.key.InstantKeyDeserializer;
 import jakarta.persistence.*;
@@ -39,37 +38,43 @@ public class DayPlan {
     private double fat = 0;
     private double protein = 0;
 
-    public DayPlan(String name, Day weekDay, Map<LocalTime, Meal> meals) {
+    @ElementCollection
+    @CollectionTable(name = "dayplan_meals", joinColumns = @JoinColumn(name = "dayplan_id"))
+    @Column(name = "time")
+    @MapKeyJoinColumn(name = "meal_id")
+    @JsonDeserialize(keyUsing = InstantKeyDeserializer.class)
+    private Map<Meal, LocalTime> meals = new HashMap<>();
+
+
+    public DayPlan(String name, Day weekDay, Map<Meal, LocalTime> meals) {
         this.name = name;
         this.weekDay = weekDay;
         this.meals = meals;
     }
 
-    @ElementCollection
-    @CollectionTable(name = "dayplan_meal", joinColumns = @JoinColumn(name = "dayplan_id"))
-    @Column(name = "meal")
-    @MapKeyJoinColumn(name = "time")
-    @JsonDeserialize(keyUsing = InstantKeyDeserializer.class)
-    @JsonFormat(pattern = "HH:mm:ss")
-    private Map<LocalTime, Meal> meals = new HashMap<>();
 
-    public Map<LocalTime, Meal> getMeals() {
+
+    public DayPlan(String name) {
+        this.name = name;
+
+    }
+
+    public Map<Meal, LocalTime> getMeals() {
         return new HashMap<>(meals) ;
 
     }
 
     public void addMeal(LocalTime time, Meal meal) {
 
-        meals.put(time, meal);
+        meals.put(meal, time);
 
         updateData();
 
     }
     public void deleteMealByMeal(Meal meal) {
 
-        for(LocalTime time : meals.keySet()){
-            if(meals.get(time) == meal) meals.remove(time);
-        }
+        meals.remove(meal);
+
         updateData();
     }
     public void updateData() {
@@ -77,7 +82,7 @@ public class DayPlan {
         this.carbs = 0;
         this.fat = 0;
         this.protein = 0;
-        for(Meal meal : meals.values()) {
+        for(Meal meal : meals.keySet()) {
 
             this.kcal += meal.getKcal();
             this.carbs += meal.getCarbs();

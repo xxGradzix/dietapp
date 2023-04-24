@@ -1,4 +1,4 @@
-package com.example.mealapp;
+package com.example.mealapp.Entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class DayPlanMealTime {
 
-    private int hour;
-    private int minute;
+    private int hours;
+    private int minutes;
 
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @AllArgsConstructor
@@ -27,12 +28,12 @@ public class MealController {
     }
 
     @PatchMapping("/{mealId}/add/{ingredientId}")
-    public ResponseEntity<Meal> addFoodIngredient(@PathVariable("mealId") Long mealId, @PathVariable("ingredientId") Long ingredient, @RequestBody Integer amount){
-        return new ResponseEntity<>(mealService.addIngredientToMeal(mealId, ingredient, amount), HttpStatus.ACCEPTED);
+    public ResponseEntity<Meal> addFoodIngredient(@PathVariable("mealId") Long mealId, @PathVariable("ingredientId") Long ingredient, @RequestBody Map<String, Integer> amount){
+        return new ResponseEntity<>(mealService.addIngredientToMeal(mealId, ingredient, amount.get("amount")), HttpStatus.ACCEPTED);
     }
     @PatchMapping("/{mealId}/delete/{ingredientId}")
-    public ResponseEntity<Meal> deleteIngredientFromMeal(@PathVariable("mealId") Long mealId, @PathVariable("ingredientId") Long ingredient, @RequestBody int amount ) {
-        return new ResponseEntity<>(mealService.deleteIngredientFromMeal(mealId, ingredient, amount), HttpStatus.OK);
+    public ResponseEntity<Meal> deleteIngredientFromMeal(@PathVariable("mealId") Long mealId, @PathVariable("ingredientId") Long ingredient, @RequestBody Map<String, Integer> amount) {
+        return new ResponseEntity<>(mealService.deleteIngredientFromMeal(mealId, ingredient, amount.get("amount")), HttpStatus.ACCEPTED);
     }
     @DeleteMapping("/delete/{mealId}")
     public ResponseEntity<?> deleteMeal(@PathVariable("mealId") Long mealId) {

@@ -1,7 +1,9 @@
 package com.example.mealapp.Services;
 
+import com.example.mealapp.Entities.DayPlan;
 import com.example.mealapp.Entities.Ingredient;
 import com.example.mealapp.Entities.Meal;
+import com.example.mealapp.Repositories.DayPlanRepository;
 import com.example.mealapp.Repositories.IngredientRepository;
 import com.example.mealapp.Repositories.MealRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,12 +27,14 @@ class IngredientServiceTest {
     private IngredientRepository ingredientRepository;
     @Mock
     private MealRepository mealRepository;
+    @Mock
+    private DayPlanRepository dayPlanRepository;
 
     private IngredientService ingredientService;
 
     @BeforeEach
     void setUp() {
-        ingredientService = new IngredientService(ingredientRepository, mealRepository);
+        ingredientService = new IngredientService(ingredientRepository, mealRepository, dayPlanRepository);
     }
 
     @Test
@@ -78,9 +82,12 @@ class IngredientServiceTest {
         Meal meal = new Meal("meal");
         meal.addIngredient(ingredient, 100);
 
+        List<DayPlan> dayPlans = List.of(new DayPlan("plan1"), new DayPlan("plan2"));
+
         // when
 
         when(ingredientRepository.findById(ingredient.getId())).thenReturn(Optional.of(ingredient));
+        when(dayPlanRepository.findAll()).thenReturn(dayPlans);
 
         when(mealRepository.findAll()).thenReturn(List.of(meal));
 
@@ -96,5 +103,8 @@ class IngredientServiceTest {
 
         verify(mealRepository).save(argumentCaptorMeal.capture());
         assertThat(argumentCaptorMeal.getValue()).isEqualTo(meal);
+
+        verify(dayPlanRepository).findAll();
+
     }
 }

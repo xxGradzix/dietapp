@@ -57,13 +57,10 @@ public class MealService {
 
     public void deleteMeal(Long mealId) {
         Meal meal = mealRepository.findById(mealId).orElseThrow(() -> new RuntimeException("there is no meal with that id"));
-
         List<DayPlan> dayPlans = dayPlanRepository.findAll();
-
         for(DayPlan dayPlan : dayPlans) {
             dayPlan.deleteMealByMeal(meal);
         }
-
         mealRepository.delete(meal);
     }
 }

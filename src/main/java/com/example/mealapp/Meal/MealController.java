@@ -1,7 +1,5 @@
-package com.example.mealapp.Controllers;
+package com.example.mealapp.Meal;
 
-import com.example.mealapp.Entities.Meal;
-import com.example.mealapp.Services.MealService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +19,10 @@ public class MealController {
     public ResponseEntity<List<Meal>> getMeals() {
         return new ResponseEntity<>(mealService.getMeals(), HttpStatus.OK);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Meal> getMeal(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(mealService.getMeal(id), HttpStatus.OK);
+    }
 
     @PostMapping("/add")
     public ResponseEntity<Meal> addMeals(@RequestBody Meal meal) {
@@ -34,6 +36,12 @@ public class MealController {
     @PatchMapping("/{mealId}/delete/{ingredientId}")
     public ResponseEntity<Meal> deleteIngredientFromMeal(@PathVariable("mealId") Long mealId, @PathVariable("ingredientId") Long ingredient, @RequestBody Map<String, Integer> amount) {
         return new ResponseEntity<>(mealService.deleteIngredientFromMeal(mealId, ingredient, amount.get("amount")), HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<Meal> updateMeal (@RequestBody Meal meal) {
+        Meal updateMeal = mealService.updateMeal(meal);
+        return new ResponseEntity<>(updateMeal, HttpStatus.OK);
     }
     @DeleteMapping("/delete/{mealId}")
     public ResponseEntity<?> deleteMeal(@PathVariable("mealId") Long mealId) {

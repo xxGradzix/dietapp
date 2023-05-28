@@ -1,5 +1,7 @@
-package com.example.mealapp.Entities;
+package com.example.mealapp.Meal;
 
+import com.example.mealapp.Entities.Food;
+import com.example.mealapp.Ingredient.Ingredient;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.key.InstantKeyDeserializer;
 import jakarta.persistence.*;
@@ -31,10 +33,12 @@ public class Meal extends Food {
     private String name;
 
     private int kcal = 0;
+
     private double carbs = 0;
     private double fat = 0;
     private double protein = 0;
 
+    private int weight = 0;
     public Meal(String name) {
         this.name = name;
     }
@@ -92,12 +96,15 @@ public class Meal extends Food {
         this.carbs = 0;
         this.fat = 0;
         this.protein = 0;
+        this.weight = 0;
+
         for(Ingredient ingredient : ingredients.keySet()) {
 
             this.kcal += ingredient.getKcal() * ingredients.get(ingredient) / 100;
             this.carbs += ingredient.getCarbs() * ingredients.get(ingredient) / 100;
             this.fat += ingredient.getFat() * ingredients.get(ingredient) / 100;
             this.protein += ingredient.getProtein() * ingredients.get(ingredient) / 100;
+            this.weight += ingredients.get(ingredient);
 
         }
 

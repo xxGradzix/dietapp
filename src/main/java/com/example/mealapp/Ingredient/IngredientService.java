@@ -1,11 +1,9 @@
-package com.example.mealapp.Services;
+package com.example.mealapp.Ingredient;
 
-import com.example.mealapp.Entities.DayPlan;
-import com.example.mealapp.Entities.Ingredient;
-import com.example.mealapp.Entities.Meal;
-import com.example.mealapp.Repositories.DayPlanRepository;
-import com.example.mealapp.Repositories.IngredientRepository;
-import com.example.mealapp.Repositories.MealRepository;
+import com.example.mealapp.DayPlan.DayPlan;
+import com.example.mealapp.Meal.Meal;
+import com.example.mealapp.DayPlan.DayPlanRepository;
+import com.example.mealapp.Meal.MealRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -44,5 +42,13 @@ public class IngredientService {
             dayPlanRepository.save(plan);
         }
         ingredientRepository.delete(ingredient);
+    }
+
+    public Ingredient getIngredient(Long id) {
+        return ingredientRepository.findById(id).orElseThrow(() -> new RuntimeException("there is no ingredient with that id"));
+    }
+
+    public Ingredient updateIngredient(Ingredient ingredient) {
+        return ingredientRepository.save(ingredient);
     }
 }

@@ -1,11 +1,9 @@
-package com.example.mealapp.Services;
+package com.example.mealapp.Meal;
 
-import com.example.mealapp.Entities.DayPlan;
-import com.example.mealapp.Entities.Ingredient;
-import com.example.mealapp.Entities.Meal;
-import com.example.mealapp.Repositories.DayPlanRepository;
-import com.example.mealapp.Repositories.IngredientRepository;
-import com.example.mealapp.Repositories.MealRepository;
+import com.example.mealapp.DayPlan.DayPlan;
+import com.example.mealapp.Ingredient.Ingredient;
+import com.example.mealapp.DayPlan.DayPlanRepository;
+import com.example.mealapp.Ingredient.IngredientRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -62,5 +60,13 @@ public class MealService {
             dayPlan.deleteMealByMeal(meal);
         }
         mealRepository.delete(meal);
+    }
+
+    public Meal updateMeal(Meal meal) {
+        return mealRepository.save(meal);
+    }
+
+    public Meal getMeal(Long id) {
+        return mealRepository.findById(id).orElseThrow(() -> new RuntimeException("there is no meal with that id"));
     }
 }

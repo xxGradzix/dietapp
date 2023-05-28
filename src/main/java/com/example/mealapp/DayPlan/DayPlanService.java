@@ -1,15 +1,12 @@
-package com.example.mealapp.Services;
+package com.example.mealapp.DayPlan;
 
 
-import com.example.mealapp.Entities.DayPlan;
-import com.example.mealapp.Entities.Meal;
-import com.example.mealapp.Repositories.DayPlanRepository;
-import com.example.mealapp.Repositories.MealRepository;
+import com.example.mealapp.Meal.Meal;
+import com.example.mealapp.Meal.MealRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -29,7 +26,7 @@ public class DayPlanService {
     }
 
     @Transactional
-    public DayPlan addMealToPlan(Long planId, Long mealId, LocalTime time) {
+    public DayPlan addMealToPlan(Long planId, Long mealId, Double part) {
 
         DayPlan dayPlan = dayPlanRepository.findById(planId).orElseThrow(() ->
                 new RuntimeException("There is no plan with that id"));
@@ -37,7 +34,7 @@ public class DayPlanService {
         Meal meal = mealRepository.findById(mealId).orElseThrow(() ->
                 new RuntimeException("There is no meal with that id"));
 
-        dayPlan.addMeal(time, meal);
+        dayPlan.addMeal(part, meal);
         return dayPlan;
 
     }
@@ -58,5 +55,12 @@ public class DayPlanService {
     public void deleteDayPlan(Long dayPlanId) {
         dayPlanRepository.findById(dayPlanId).orElseThrow(() -> new RuntimeException("There is no day plan with that id"));
         dayPlanRepository.deleteById(dayPlanId);
+    }
+    public DayPlan getDayPlan(Long id) {
+        return dayPlanRepository.findById(id).orElseThrow(() -> new RuntimeException("There is no day plan with that id"));
+    }
+
+    public DayPlan updateDayPlan(DayPlan dayPlan) {
+        return dayPlanRepository.save(dayPlan);
     }
 }

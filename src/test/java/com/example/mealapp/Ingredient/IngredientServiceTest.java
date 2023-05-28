@@ -1,11 +1,9 @@
-package com.example.mealapp.Services;
+package com.example.mealapp.Ingredient;
 
-import com.example.mealapp.Entities.DayPlan;
-import com.example.mealapp.Entities.Ingredient;
-import com.example.mealapp.Entities.Meal;
-import com.example.mealapp.Repositories.DayPlanRepository;
-import com.example.mealapp.Repositories.IngredientRepository;
-import com.example.mealapp.Repositories.MealRepository;
+import com.example.mealapp.DayPlan.DayPlan;
+import com.example.mealapp.Meal.Meal;
+import com.example.mealapp.DayPlan.DayPlanRepository;
+import com.example.mealapp.Meal.MealRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

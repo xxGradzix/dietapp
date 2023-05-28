@@ -1,4 +1,4 @@
-package com.example.mealapp.Entities;
+package com.example.mealapp.DayPlan;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

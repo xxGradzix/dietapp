@@ -1,5 +1,6 @@
-package com.example.mealapp.Entities;
+package com.example.mealapp.Ingredient;
 
+import com.example.mealapp.Entities.Food;
 import jakarta.persistence.*;
 import lombok.*;
 

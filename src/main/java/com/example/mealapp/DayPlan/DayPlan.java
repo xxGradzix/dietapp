@@ -1,5 +1,6 @@
-package com.example.mealapp.Entities;
+package com.example.mealapp.DayPlan;
 
+import com.example.mealapp.Meal.Meal;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.key.InstantKeyDeserializer;
 import jakarta.persistence.*;
@@ -8,7 +9,6 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
-import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,13 +40,13 @@ public class DayPlan {
 
     @ElementCollection
     @CollectionTable(name = "dayplan_meals", joinColumns = @JoinColumn(name = "dayplan_id"))
-    @Column(name = "time")
+    @Column(name = "part")
     @MapKeyJoinColumn(name = "meal_id")
     @JsonDeserialize(keyUsing = InstantKeyDeserializer.class)
-    private Map<Meal, LocalTime> meals = new HashMap<>();
+    private Map<Meal, Double> meals = new HashMap<>();
 
 
-    public DayPlan(String name, Day weekDay, Map<Meal, LocalTime> meals) {
+    public DayPlan(String name, Day weekDay, Map<Meal, Double> meals) {
         this.name = name;
         this.weekDay = weekDay;
         this.meals = meals;
@@ -59,14 +59,17 @@ public class DayPlan {
 
     }
 
-    public Map<Meal, LocalTime> getMeals() {
+    public Map<Meal, Double> getMeals() {
         return new HashMap<>(meals) ;
 
     }
 
-    public void addMeal(LocalTime time, Meal meal) {
+    public void addMeal(Double part, Meal meal) {
 
-        meals.put(meal, time);
+
+        if(part < 0) return;
+
+        meals.put(meal, meals.getOrDefault(meal, 0.0) + part);
 
         updateData();
 
@@ -84,10 +87,10 @@ public class DayPlan {
         this.protein = 0;
         for(Meal meal : meals.keySet()) {
 
-            this.kcal += meal.getKcal();
-            this.carbs += meal.getCarbs();
-            this.fat += meal.getFat();
-            this.protein += meal.getProtein();
+            this.kcal += meal.getKcal() * meals.get(meal);
+            this.carbs += meal.getCarbs() * meals.get(meal);
+            this.fat += meal.getFat() * meals.get(meal);
+            this.protein += meal.getProtein() * meals.get(meal);
 
         }
 

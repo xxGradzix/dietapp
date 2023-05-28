@@ -1,8 +1,8 @@
 package com.example.mealapp.Configuration;
 
-import com.example.mealapp.Entities.Ingredient;
-import com.example.mealapp.Services.IngredientService;
-import com.example.mealapp.Services.MealService;
+import com.example.mealapp.Ingredient.Ingredient;
+import com.example.mealapp.Ingredient.IngredientService;
+import com.example.mealapp.Meal.MealService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +26,10 @@ public class FirstConfig {
             Ingredient kakao = new Ingredient(null, "kakao", 309, 13, 11, 24);
             Ingredient serekWiejskiLekki = new Ingredient(null, "serek wiejski lekki", 81, 2.4, 3, 11);
             Ingredient masloOrzechowe = new Ingredient(null, "maslo orzechowe", 637, 9.6, 52, 29);
+            Ingredient kurczak = new Ingredient(null, "piers z kurczaka", 98, 0, 3.7, 21.8);
+            Ingredient maka = new Ingredient(null, "maka", 35, 74, 16, 10);
+            Ingredient mozzarellaLight = new Ingredient(null, "mozzarella light", 165, 2, 9, 19);
+            Ingredient bulkaTarta = new Ingredient(null, "bulka tarta", 395, 72, 5, 13);
 
 
             ingredientService.addIngredient(mleko);
@@ -41,6 +45,10 @@ public class FirstConfig {
             ingredientService.addIngredient(kakao);
             ingredientService.addIngredient(serekWiejskiLekki);
             ingredientService.addIngredient(masloOrzechowe);
+            ingredientService.addIngredient(kurczak);
+            ingredientService.addIngredient(maka);
+            ingredientService.addIngredient(mozzarellaLight);
+            ingredientService.addIngredient(bulkaTarta);
 
         };
 
